@@ -1,0 +1,148 @@
+* {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+}
+
+header {
+  margin: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 3px solid #dcdcdb;
+  border-radius: 0.75rem;
+}
+header .title-div a {
+  text-decoration: none;
+  color: black;
+  display: flex;
+  align-items: center;
+}
+header .title-div a h1 {
+  margin-left: 0.5rem;
+}
+header .links-div a {
+  font-weight: 500;
+  text-decoration: none;
+  color: #f7f7f7;
+  border: 2px solid #54b2bd;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  background-color: #85c8d0;
+}
+header .links-div a:hover {
+  background-color: #b4dce0;
+}
+
+main {
+  text-align: center;
+}
+main .main-title h2 {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+main .search-div {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+main .search-div .search-input {
+  border: 2px solid #b1b1ae;
+  border-radius: 0.3rem;
+  color: #352f2f;
+  margin: 0.75rem 0.5rem;
+  width: 25%;
+  padding: 0.3rem;
+}
+main .search-div .search-btn {
+  cursor: pointer;
+  color: white;
+  padding: 0.3rem;
+  background-color: #85c8d0;
+  border: 2px solid #54b2bd;
+  border-radius: 0.3rem;
+}
+main .report-section .report-div {
+  margin: 1rem 0rem;
+}
+main .report-section .report-div img {
+  margin-top: 0.5rem;
+  height: 200px;
+  border-radius: 1rem;
+}
+main .report-section .report-div p {
+  margin: 0.3rem 0rem;
+}
+main .report-section .report-div .report-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+main .report-section .report-div .report-buttons button {
+  margin: 1rem 3rem;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  font-size: 1rem;
+}
+main .new-report-section .new-report-form {
+  margin: 1rem 6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+main .new-report-section .new-report-form .input-div {
+  margin: 1rem 0rem;
+  display: flex;
+  flex-direction: column;
+}
+main .new-report-section .new-report-form .input-div .city-div {
+  display: flex;
+  align-items: center;
+}
+main .new-report-section .new-report-form .input-div .city-div input {
+  width: 170px;
+}
+main .new-report-section .new-report-form .input-div .city-div .geo-btn {
+  width: 30px;
+  margin-left: 0.3rem;
+}
+main .new-report-section .new-report-form .input-div label {
+  text-align: left;
+  padding-bottom: 0.3rem;
+}
+main .new-report-section .new-report-form .input-div input {
+  padding: 0.3rem;
+  width: 200px;
+}
+main .new-report-section .new-report-form .input-div textarea {
+  max-width: 200px;
+  min-width: 200px;
+  padding: 0.3rem;
+  min-height: 63px;
+  max-height: 300px;
+}
+main .new-report-section .new-report-form button {
+  cursor: pointer;
+  color: white;
+  padding: 0.3rem;
+  background-color: #85c8d0;
+  border: 2px solid #54b2bd;
+  border-radius: 0.5rem;
+}
+
+@media screen and (max-width: 768px) {
+  .title-div a h1 {
+    font-size: 1.5em;
+  }
+}
+
+/*# sourceMappingURL=stylesheet.css.map */

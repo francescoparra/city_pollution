@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./partials/head') %>
+  <body>
+    <%- include('./partials/header') %>
+    <main>
+      <section class="search-section">
+        <div class="main-title">
+          <h2>Welcome to the first pollution social network</h2>
+          <p>
+            Share the pollution present in your city to be <br />
+            able to warn other people.
+          </p>
+        </div>
+        <div class="search-div">
+          <p class="search-p">Search for a city:</p>
+          <input
+            class="search-input"
+            type="text"
+            placeholder="Milan, London, ecc."
+          />
+          <button class="search-btn" type="submit">Search</button>
+        </div>
+      </section>
+      <section class="report-section">
+        <% if(reports.length > 0) {%> <% reports.forEach(report => { %> 
+        <% const createdAt = new Date(report.createdAt).toLocaleString() %>
+        <div id="reportDiv" class="report-div">
+          <h3 class="report-title"><%= report.city %></h3>
+          <img
+            class="reportImages"
+            src="./assets/images/<%= report.image %>"
+            alt="report"
+          />
+          <p class="report-user">By: <%= report.user %></p>
+          <p class="report-date">At: <%= createdAt %></p>
+          <p class="report-desc"><%= report.description %></p>
+          <div class="report-buttons">
+            <button
+              class="delete-button"
+              data-id="<%= report.id %>"
+              type="submit"
+            >
+              <i style="margin-right: 0.5rem" class="fas fa-trash"></i>
+              Delete
+            </button>
+            <button
+              class="update-button"
+              data-id="<%= report.id %>"
+              type="submit"
+            >
+              <i style="margin-right: 0.5rem" class="far fa-edit"></i>
+              Edit
+            </button>
+          </div>
+        </div>
+        <% }) %> <% } else{ %>
+        <h3>There are no report yet, sorry.</h3>
+        <% } %>
+      </section>
+    </main>
+
+    <script>
+      document
+        .querySelector(".report-section")
+        .addEventListener("click", function (event) {
+          if (event.target.className === "delete-button") {
+            deleteReport(event.target.dataset.id);
+          }
+        });
+
+      function deleteReport(id) {
+        const endpoint = `http://localhost:8080/delete/${id}`;
+        fetch(endpoint, {
+          method: "DELETE",
+        })
+          .then((response) => response.json())
+          .then((data) => (window.location.href = data.redirect))
+          .catch((err) => console.log(err));
+      }
+      const searchBtn = document.querySelector(".search-btn");
+      searchBtn.onclick = function () {
+        const searchValue = document.querySelector(".search-input").value;
+        window.location.href = "http://localhost:8080/search/" + searchValue
+      };
+    </script>
+  </body>
+</html>

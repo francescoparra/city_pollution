@@ -1,0 +1,160 @@
+* {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+}
+
+header {
+  margin: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 3px solid #dcdcdb;
+  border-radius: 0.75rem;
+
+  .title-div {
+    a {
+      text-decoration: none;
+      color: black;
+      display: flex;
+      align-items: center;
+      h1 {
+        margin-left: 0.5rem;
+      }
+    }
+  }
+
+  .links-div {
+    a {
+      font-weight: 500;
+      text-decoration: none;
+      color: #f7f7f7;
+      border: 2px solid #54b2bd;
+      border-radius: 0.5rem;
+      padding: 0.5rem;
+      background-color: #85c8d0;
+    }
+    a:hover {
+      background-color: #b4dce0;
+    }
+  }
+}
+main {
+  text-align: center;
+  .main-title {
+    h2 {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+  }
+  .search-div {
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .search-input {
+      border: 2px solid #b1b1ae;
+      border-radius: 0.3rem;
+      color: rgb(53, 47, 47);
+      margin: 0.75rem 0.5rem;
+      width: 25%;
+      padding: 0.3rem;
+    }
+    .search-btn {
+      cursor: pointer;
+      color: white;
+      padding: 0.3rem;
+      background-color: #85c8d0;
+      border: 2px solid #54b2bd;
+      border-radius: 0.3rem;
+    }
+  }
+  .report-section {
+    .report-div {
+      margin: 1rem 0rem;
+      img {
+        margin-top: 0.5rem;
+        height: 200px;
+        border-radius: 1rem;
+      }
+      p{
+        margin: 0.3rem 0rem;
+      }
+      .report-buttons {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        button {
+          margin: 1rem 3rem;
+          cursor: pointer;
+          background-color: transparent;
+          border: none;
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+  .new-report-section {
+    .new-report-form {
+      margin: 1rem 6rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      .input-div {
+        margin: 1rem 0rem;
+        display: flex;
+        flex-direction: column;
+        .city-div{
+          display: flex;
+          align-items: center;
+          input{
+            width: 170px;
+          }
+          .geo-btn{
+            width: 30px;
+            margin-left: 0.3rem;
+          }
+        }
+        label {
+          text-align: left;
+          padding-bottom: 0.3rem;
+        }
+        input {
+          padding: 0.3rem;
+          width: 200px;
+        }
+        textarea {
+          max-width: 200px;
+          min-width: 200px;
+          padding: 0.3rem;
+          min-height: 63px;
+          max-height: 300px;
+        }
+      }
+      button {
+        cursor: pointer;
+        color: white;
+        padding: 0.3rem;
+        background-color: #85c8d0;
+        border: 2px solid #54b2bd;
+        border-radius: 0.5rem;
+      }
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  .title-div {
+    a {
+      h1 {
+        font-size: 1.5em;
+      }
+    }
+  }
+}

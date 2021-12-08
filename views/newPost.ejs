@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./partials/head') %>
+  <body>
+    <%- include('./partials/header') %>
+    <main>
+      <section class="new-report-section">
+        <form
+          method="POST"
+          action="/insert"
+          class="new-report-form"
+          enctype="multipart/form-data"
+        >
+          <div class="input-div">
+            <label class="label" for="city"> City: </label>
+            <div class="city-div">
+              <input
+              class="input-element"
+              type="text"
+              name="city"
+              id="city"
+              placeholder="Milan, London, ecc."
+              required
+              />
+              <button class="geo-btn" form="no-form" id="geo">
+                <i class="fas fa-map-marker-alt"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="input-div">
+            <label class="label" for="description"> Description: </label>
+
+            <textarea
+              class="input-element"
+              name="description"
+              id="description"
+              placeholder="Some description..."
+              required
+            ></textarea>
+          </div>
+
+          <div class="input-div">
+            <label class="label" for="user"> User: </label>
+
+            <input
+              class="input-element"
+              type="text"
+              name="user"
+              placeholder="Mario Rossi"
+              id="user"
+              required
+            />
+          </div>
+
+          <div class="input-div">
+            <label class="label" for="image"> Image: </label>
+
+            <input
+              class="input-element"
+              type="file"
+              name="image"
+              id="image"
+              required
+            />
+          </div>
+
+          <div class="input-div">
+            <button type="submit" class="submit-button">Submit</button>
+          </div>
+        </form>
+      </section>
+    </main>
+    <script>
+      const geoBtn = document.getElementById("geo");
+      const inputCity = document.getElementById("city")
+      geoBtn.onclick =  () => {
+      if(!navigator.geolocation) {
+            console.log('Your Browser Dont Support This Function');
+        } else {
+            const promise = new Promise((resolve, reject) => navigator.geolocation.getCurrentPosition(resolve, reject));
+            let coords;
+            
+            promise
+                .then(position => {
+                  coords = position.coords.latitude + "," + position.coords.longitude;
+                  const API_KEY = '<%= process.env.API_KEY %>';
+                  fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${coords}&key=AIzaSyByvzcHsG1jPaf5lCIUYZQDit5yE2RAWpA`)
+                      .then(response => response.json())
+                      .then(datas => { 
+                        console.log(datas);
+                        inputCity.value = datas.results[0].formatted_address;
+                      })
+                      .catch(error => console.log(error));
+                })
+                .catch(error => console.log(error));
+        }
+    };
+    </script>
+  </body>
+</html>
