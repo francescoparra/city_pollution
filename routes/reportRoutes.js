@@ -1,21 +1,8 @@
 const express = require("express");
-const multer = require("multer");
+const upload = require("../controllers/multerController");
 const reportController = require("../controllers/reportController");
 
 const router = express.Router();
-
-// multer
-
-const fileStorageEngine = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, `../progetto2prova/public/assets/images`);
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + "--" + file.originalname);
-  },
-});
-
-const upload = multer({ storage: fileStorageEngine });
 
 // create
 
@@ -29,9 +16,12 @@ router.get("/", reportController.reportIndex);
 
 // update
 
+router.get("/edit/:id", reportController.getSingleReport);
+router.patch("/update/:id", reportController.updateReport);
+
 // delete
 
-router.delete("/delete/:id", reportController.deleteReport);
+router.delete("/delete/:id/:image", reportController.deleteReport);
 
 // search
 

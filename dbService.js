@@ -1,4 +1,5 @@
 const mysql = require("mysql");
+const fs = require("fs");
 const dotenv = require("dotenv");
 dotenv.config();
 let instance = null;
@@ -39,14 +40,14 @@ class DbService {
     }
   }
   // CREATE
-  async createPost(city, description, user, image) {
+  async createPost(city, status, comment, user, image) {
     try {
       const createdAt = new Date();
       const insertId = await new Promise((resolve, reject) => {
         const query =
-          "INSERT INTO reports (city, description, user, image, createdAt) VALUES (?,?,?,?,?);";
+          "INSERT INTO reports (city, status, comment, user, image, createdAt) VALUES (?,?,?,?,?,?);";
 
-        connection.query(query, [city, description, user, image, createdAt], (err, result) => {
+        connection.query(query, [city, status, comment, user, image, createdAt], (err, result) => {
           if (err) reject(new Error(err.message));
           resolve(result.insertId);
         });
@@ -54,7 +55,8 @@ class DbService {
       return {
         id: insertId,
         city: city,
-        description: description,
+        status: status,
+        comment: comment,
         user: user,
         image: image,
         createdAt: createdAt
@@ -64,7 +66,7 @@ class DbService {
     }
   }
   // DELETE
-  async deletePost(id) {
+  async deletePost(id, image) {
     try {
       const response = await new Promise((resolve, reject) => {
         const query = "DELETE FROM reports WHERE id = ?";
@@ -72,6 +74,9 @@ class DbService {
           if (err) reject(new Error(err.message));
           resolve(result.affectedRows);
         });
+        fs.unlink(`public/assets/images/${image}`, (err =>{
+          if(err) console.log(err);
+        }));
       });
       return response === 1 ? true : false;
     } catch (error) {
@@ -80,13 +85,28 @@ class DbService {
     }
   }
   // UPDATE
-  async patchPost(id, city) {
+  async getReportById(id){
+    try {
+      const response = await new Promise((resolve, reject) => {
+        const query = "SELECT * FROM reports WHERE id = ?;";
+        connection.query(query, [id], (err, results) => {
+          if (err) reject(new Error(err.message));
+          resolve(results);
+        });
+      });
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  async patchReport(id, city, status, comment) {
     try {
       id = parseInt(id, 10);
+      const updatedAt = new Date();
       const response = await new Promise((resolve, reject) => {
-        const query = "UPDATE reports SET city = ? WHERE id = ?";
+        const query = "UPDATE reports SET city = ?, status = ?, comment = ?, updatedAt = ? WHERE id = ?";
 
-        connection.query(query, [city, id], (err, result) => {
+        connection.query(query, [city, status, comment, updatedAt, id], (err, result) => {
           if (err) reject(new Error(err.message));
           resolve(result.affectedRows);
         });
@@ -97,7 +117,7 @@ class DbService {
       return false;
     }
   }
-  // Search
+  // SEARCH
   async searchCity(city) {
     try {
       const response = await new Promise((resolve, reject) => {

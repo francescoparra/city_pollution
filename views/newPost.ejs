@@ -4,6 +4,7 @@
   <body>
     <%- include('./partials/header') %>
     <main>
+      <h2>Create A New Report</h2>
       <section class="new-report-section">
         <form
           method="POST"
@@ -13,29 +14,38 @@
         >
           <div class="input-div">
             <label class="label" for="city"> City: </label>
-            <div class="city-div">
-              <input
+            <input
               class="input-element"
               type="text"
               name="city"
               id="city"
               placeholder="Milan, London, ecc."
+              maxlength="25"
               required
-              />
-              <button class="geo-btn" form="no-form" id="geo">
-                <i class="fas fa-map-marker-alt"></i>
-              </button>
-            </div>
+            />
           </div>
 
           <div class="input-div">
-            <label class="label" for="description"> Description: </label>
+            <label class="label" for="description"> Status: </label>
+
+            <select class="status" name="status" id="status" required>
+              <option>Good</option>
+              <option>Moderate</option>
+              <option>Unhealthy</option>
+              <option>Very Unhealthy</option>
+              <option>Hazardous</option>
+            </select>
+          </div>
+
+          <div class="input-div">
+            <label class="label" for="description"> Comment: </label>
 
             <textarea
               class="input-element"
-              name="description"
-              id="description"
-              placeholder="Some description..."
+              name="comment"
+              id="comment"
+              placeholder="Today the air is clean!"
+              maxlength="254"
               required
             ></textarea>
           </div>
@@ -49,6 +59,7 @@
               name="user"
               placeholder="Mario Rossi"
               id="user"
+              maxlength="40"
               required
             />
           </div>
@@ -71,31 +82,6 @@
         </form>
       </section>
     </main>
-    <script>
-      const geoBtn = document.getElementById("geo");
-      const inputCity = document.getElementById("city")
-      geoBtn.onclick =  () => {
-      if(!navigator.geolocation) {
-            console.log('Your Browser Dont Support This Function');
-        } else {
-            const promise = new Promise((resolve, reject) => navigator.geolocation.getCurrentPosition(resolve, reject));
-            let coords;
-            
-            promise
-                .then(position => {
-                  coords = position.coords.latitude + "," + position.coords.longitude;
-                  const API_KEY = '<%= process.env.API_KEY %>';
-                  fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${coords}&key=AIzaSyByvzcHsG1jPaf5lCIUYZQDit5yE2RAWpA`)
-                      .then(response => response.json())
-                      .then(datas => { 
-                        console.log(datas);
-                        inputCity.value = datas.results[0].formatted_address;
-                      })
-                      .catch(error => console.log(error));
-                })
-                .catch(error => console.log(error));
-        }
-    };
-    </script>
+    <%- include('./partials/footer') %>
   </body>
 </html>

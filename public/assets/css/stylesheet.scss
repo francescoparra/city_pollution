@@ -46,6 +46,7 @@ header {
   }
 }
 main {
+  min-height: 720px;
   text-align: center;
   .main-title {
     h2 {
@@ -80,10 +81,11 @@ main {
       margin: 1rem 0rem;
       img {
         margin-top: 0.5rem;
-        height: 200px;
+        max-height: 200px;
+        max-width: 300px;
         border-radius: 1rem;
       }
-      p{
+      p {
         margin: 0.3rem 0rem;
       }
       .report-buttons {
@@ -111,22 +113,16 @@ main {
         margin: 1rem 0rem;
         display: flex;
         flex-direction: column;
-        .city-div{
-          display: flex;
-          align-items: center;
-          input{
-            width: 170px;
-          }
-          .geo-btn{
-            width: 30px;
-            margin-left: 0.3rem;
-          }
-        }
+
         label {
           text-align: left;
           padding-bottom: 0.3rem;
         }
         input {
+          padding: 0.3rem;
+          width: 200px;
+        }
+        select {
           padding: 0.3rem;
           width: 200px;
         }
@@ -138,18 +134,78 @@ main {
           max-height: 300px;
         }
       }
-      button {
-        cursor: pointer;
-        color: white;
-        padding: 0.3rem;
-        background-color: #85c8d0;
-        border: 2px solid #54b2bd;
-        border-radius: 0.5rem;
+    }
+    button {
+      cursor: pointer;
+      color: white;
+      padding: 0.3rem;
+      background-color: #85c8d0;
+      border: 2px solid #54b2bd;
+      border-radius: 0.5rem;
+    }
+  }
+  .edit-report-section {
+    margin: 1rem 6rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    .input-div {
+      margin: 1rem 0rem;
+      display: flex;
+      flex-direction: column;
+
+      label {
+        text-align: left;
+        padding-bottom: 0.3rem;
       }
+      input {
+        padding: 0.3rem;
+        width: 200px;
+      }
+      select {
+        padding: 0.3rem;
+        width: 200px;
+      }
+      textarea {
+        max-width: 200px;
+        min-width: 200px;
+        padding: 0.3rem;
+        min-height: 63px;
+        max-height: 300px;
+      }
+    }
+    button {
+      cursor: pointer;
+      color: white;
+      padding: 0.3rem;
+      background-color: #94d050;
+      border: 2px solid #77b631;
+      border-radius: 0.5rem;
     }
   }
 }
+footer {
+  border-top: 3px solid #dcdcdb;
+  border-radius: 0.75rem;
+  text-align: center;
+  padding-top: 0.5rem;
+  margin: 1rem auto;
+  .footer-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+    img {
+      margin-right: 1rem;
+    }
+  }
+}
+
 @media screen and (max-width: 768px) {
+  body {
+    min-height: 500px;
+  }
   .title-div {
     a {
       h1 {

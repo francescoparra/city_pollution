@@ -23,35 +23,39 @@
         </div>
       </section>
       <section class="report-section">
-        <% if(reports.length > 0) {%> <% reports.forEach(report => { %> 
-        <% const createdAt = new Date(report.createdAt).toLocaleString() %>
+        <% if(reports.length > 0) {%> <% reports.forEach(report => { %>
         <div id="reportDiv" class="report-div">
           <h3 class="report-title"><%= report.city %></h3>
           <img
             class="reportImages"
-            src="./assets/images/<%= report.image %>"
+            src="/assets/images/<%= report.image %>"
             alt="report"
           />
           <p class="report-user">By: <%= report.user %></p>
-          <p class="report-date">At: <%= createdAt %></p>
-          <p class="report-desc"><%= report.description %></p>
+          <p class="report-date">
+            At: <%= report.createdAt.toLocaleString() %>
+          </p>
+          <% if(report.updatedAt){ %>
+          <p>Last update: <%= report.updatedAt.toLocaleString() %></p>
+          <% } %>
+          <p>Status: <%= report.status %></p>
+          <p class="report-desc"><%= report.comment %></p>
           <div class="report-buttons">
             <button
               class="delete-button"
               data-id="<%= report.id %>"
+              data-img="<%= report.image %>"
               type="submit"
             >
               <i style="margin-right: 0.5rem" class="fas fa-trash"></i>
               Delete
             </button>
-            <button
-              class="update-button"
-              data-id="<%= report.id %>"
-              type="submit"
-            >
-              <i style="margin-right: 0.5rem" class="far fa-edit"></i>
-              Edit
-            </button>
+            <form action="/edit/<%= report.id %>" method="GET">
+              <button class="update-button" type="submit">
+                <i style="margin-right: 0.5rem" class="far fa-edit"></i>
+                Edit
+              </button>
+            </form>
           </div>
         </div>
         <% }) %> <% } else{ %>
@@ -59,18 +63,19 @@
         <% } %>
       </section>
     </main>
-
+    <%- include('./partials/footer') %>
     <script>
       document
         .querySelector(".report-section")
         .addEventListener("click", function (event) {
           if (event.target.className === "delete-button") {
-            deleteReport(event.target.dataset.id);
+            const id = event.target.dataset.id;
+            const image = event.target.dataset.img;
+            deleteReport(id, image)
           }
         });
-
-      function deleteReport(id) {
-        const endpoint = `http://localhost:8080/delete/${id}`;
+      function deleteReport(id, image) {
+        const endpoint = `http://localhost:8080/delete/${id}/${image}`;
         fetch(endpoint, {
           method: "DELETE",
         })
@@ -81,7 +86,7 @@
       const searchBtn = document.querySelector(".search-btn");
       searchBtn.onclick = function () {
         const searchValue = document.querySelector(".search-input").value;
-        window.location.href = "http://localhost:8080/search/" + searchValue
+        window.location.href = "http://localhost:8080/search/" + searchValue;
       };
     </script>
   </body>

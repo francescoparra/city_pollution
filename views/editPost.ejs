@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./partials/head') %>
+  <body>
+    <%- include('./partials/header') %>
+    <main>
+      <h2>Edit The Report</h2>
+      <section class="edit-report-section">
+        <% reports.forEach(report => { %>
+        <div class="input-div">
+          <label class="label" for="city"> City: </label>
+          <input
+            class="input-element"
+            type="text"
+            name="city"
+            id="city"
+            value="<%= report.city %>"
+            required
+          />
+        </div>
+
+        <div class="input-div">
+          <label class="label" for="description"> Status: </label>
+
+          <select class="status" name="status" id="status" required>
+            <option>Good</option>
+            <option>Moderate</option>
+            <option>Unhealthy</option>
+            <option>Very Unhealthy</option>
+            <option>Hazardous</option>
+          </select>
+        </div>
+
+        <div class="input-div">
+          <label class="label" for="description"> Comment: </label>
+
+          <textarea class="input-element" name="comment" id="comment" required>
+<%= report.comment %>
+          </textarea>
+        </div>
+
+        <% if (error) { %>
+          <p style="color: red;"><%= error %></p>
+        <% } %>
+
+        <div class="input-div">
+          <button
+            type="submit"
+            data-id="<%= report.id %> "
+            class="submit-button"
+          >
+            Submit
+          </button>
+        </div>
+        <% }) %>
+      </section>
+    </main>
+    <script>
+      document
+        .querySelector(".edit-report-section")
+        .addEventListener("click", function (event) {
+          if (event.target.className === "submit-button") {
+            updateReport(event.target.dataset.id);
+          }
+        });
+      function updateReport(id) {
+        const inputCity = document.querySelector("#city");
+        const inputStatus = document.querySelector("#status");
+        console.log(inputStatus.options[inputStatus.selectedIndex].text);
+        const inputComment = document.querySelector("#comment");
+        const endpoint = `http://localhost:8080/update/${id}`;
+        fetch(endpoint, {
+          method: "PATCH",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({
+            id: id,
+            city: inputCity.value,
+            status: inputStatus.value,
+            comment: inputComment.value,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => (window.location.href = data.redirect))
+          .catch((err) => console.log(err));
+      }
+    </script>
+  </body>
+</html>

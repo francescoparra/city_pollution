@@ -41,6 +41,7 @@ header .links-div a:hover {
 }
 
 main {
+  min-height: 720px;
   text-align: center;
 }
 main .main-title h2 {
@@ -74,7 +75,8 @@ main .report-section .report-div {
 }
 main .report-section .report-div img {
   margin-top: 0.5rem;
-  height: 200px;
+  max-height: 200px;
+  max-width: 300px;
   border-radius: 1rem;
 }
 main .report-section .report-div p {
@@ -104,22 +106,15 @@ main .new-report-section .new-report-form .input-div {
   display: flex;
   flex-direction: column;
 }
-main .new-report-section .new-report-form .input-div .city-div {
-  display: flex;
-  align-items: center;
-}
-main .new-report-section .new-report-form .input-div .city-div input {
-  width: 170px;
-}
-main .new-report-section .new-report-form .input-div .city-div .geo-btn {
-  width: 30px;
-  margin-left: 0.3rem;
-}
 main .new-report-section .new-report-form .input-div label {
   text-align: left;
   padding-bottom: 0.3rem;
 }
 main .new-report-section .new-report-form .input-div input {
+  padding: 0.3rem;
+  width: 200px;
+}
+main .new-report-section .new-report-form .input-div select {
   padding: 0.3rem;
   width: 200px;
 }
@@ -130,7 +125,7 @@ main .new-report-section .new-report-form .input-div textarea {
   min-height: 63px;
   max-height: 300px;
 }
-main .new-report-section .new-report-form button {
+main .new-report-section button {
   cursor: pointer;
   color: white;
   padding: 0.3rem;
@@ -138,8 +133,68 @@ main .new-report-section .new-report-form button {
   border: 2px solid #54b2bd;
   border-radius: 0.5rem;
 }
+main .edit-report-section {
+  margin: 1rem 6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+main .edit-report-section .input-div {
+  margin: 1rem 0rem;
+  display: flex;
+  flex-direction: column;
+}
+main .edit-report-section .input-div label {
+  text-align: left;
+  padding-bottom: 0.3rem;
+}
+main .edit-report-section .input-div input {
+  padding: 0.3rem;
+  width: 200px;
+}
+main .edit-report-section .input-div select {
+  padding: 0.3rem;
+  width: 200px;
+}
+main .edit-report-section .input-div textarea {
+  max-width: 200px;
+  min-width: 200px;
+  padding: 0.3rem;
+  min-height: 63px;
+  max-height: 300px;
+}
+main .edit-report-section button {
+  cursor: pointer;
+  color: white;
+  padding: 0.3rem;
+  background-color: #94d050;
+  border: 2px solid #77b631;
+  border-radius: 0.5rem;
+}
+
+footer {
+  border-top: 3px solid #dcdcdb;
+  border-radius: 0.75rem;
+  text-align: center;
+  padding-top: 0.5rem;
+  margin: 1rem auto;
+}
+footer .footer-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+}
+footer .footer-text img {
+  margin-right: 1rem;
+}
 
 @media screen and (max-width: 768px) {
+  body {
+    min-height: 500px;
+  }
+
   .title-div a h1 {
     font-size: 1.5em;
   }
