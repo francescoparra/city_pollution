@@ -1,67 +1,86 @@
-const DbService = require("../dbService");
+const { Reports } = require("../models");
+const fs = require("fs");
 
-const reportIndex = (req, res) => {
-  const db = DbService.getDbServiceInstance();
-
-  const result = db.getAllData();
-
-  result
-    .then((reports) => res.render("index", { reports: reports }))
-    .catch((err) => console.log(err));
+const reportIndex = async (req, res) => {
+  try {
+    const reports = await Reports.findAll({ order: [["createdAt", "DESC"]] });
+    return res.render("index", { reports: reports });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const newReportGet = (req, res) => {
   res.render("newPost");
 };
 
-const newReportPost = (req, res) => {
+const newReportPost = async (req, res) => {
   const { city, status, comment, user } = req.body;
   const image = req.file.filename;
-  const db = DbService.getDbServiceInstance();
-
-  const result = db.createPost(city, status, comment, user, image);
-
-  result.then(res.redirect("/")).catch((err) => console.log(err));
+  try {
+    const createdAt = new Date();
+    const updatedAt = null;
+    await Reports.create({
+      city,
+      status,
+      comment,
+      user,
+      image,
+      createdAt,
+      updatedAt
+    });
+    res.redirect("/");
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-const deleteReport = (req, res) => {
+const deleteReport = async (req, res) => {
   const { id, image } = req.params;
-  const db = DbService.getDbServiceInstance();
-
-  const result = db.deletePost(id, image);
-
-  result.then(res.json({ redirect: "/" })).catch((err) => console.log(err));
+  try {
+    await Reports.destroy({ where: { id } });
+    fs.unlink(`public/assets/images/${image}`, (err) => {
+      if (err) console.log(err);
+    });
+    return res.json({ redirect: "/" });
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
 };
 
-const getSingleReport = (req, res) => {
+const getSingleReport = async (req, res) => {
   const { id } = req.params;
-  const db = DbService.getDbServiceInstance();
-
-  const result = db.getReportById(id);
-
-  result
-    .then((data) => res.render("editPost", { reports: data }))
-    .catch((err) => console.log(err));
+  try {
+    const reports = await Reports.findOne({ where: { id } });
+    return res.render("editPost", { reports: reports });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-const updateReport = (req, res) => {
+const updateReport = async (req, res) => {
   const { id, city, status, comment } = req.body;
-  const db = DbService.getDbServiceInstance();
-
-  const result = db.patchReport(id, city, status, comment);
-
-  result.then(res.json({ redirect: "/" })).catch((err) => console.log(err));
+  const updatedAt = new Date();
+  try {
+    await Reports.update(
+      { city: city, status: status, comment: comment, updatedAt: updatedAt },
+      { where: { id } }
+    );
+    return res.json({ redirect: "/" });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-const searchCity = (req, res) => {
+const searchCity = async (req, res) => {
   const { city } = req.params;
-  const db = DbService.getDbServiceInstance();
-
-  const result = db.searchCity(city);
-
-  result
-    .then((data) => res.render("index", { reports: data }))
-    .catch((err) => console.log(err));
+  try {
+    cityReports = await Reports.findAll({ where: { city } });
+    return res.render("index", { reports: cityReports });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 module.exports = {
@@ -71,5 +90,5 @@ module.exports = {
   deleteReport,
   getSingleReport,
   updateReport,
-  searchCity
+  searchCity,
 };

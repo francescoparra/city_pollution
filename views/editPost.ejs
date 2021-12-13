@@ -6,7 +6,6 @@
     <main>
       <h2>Edit The Report</h2>
       <section class="edit-report-section">
-        <% reports.forEach(report => { %>
         <div class="input-div">
           <label class="label" for="city"> City: </label>
           <input
@@ -14,7 +13,7 @@
             type="text"
             name="city"
             id="city"
-            value="<%= report.city %>"
+            value="<%= reports.city %>"
             required
           />
         </div>
@@ -35,24 +34,19 @@
           <label class="label" for="description"> Comment: </label>
 
           <textarea class="input-element" name="comment" id="comment" required>
-<%= report.comment %>
+<%= reports.comment %>
           </textarea>
         </div>
-
-        <% if (error) { %>
-          <p style="color: red;"><%= error %></p>
-        <% } %>
 
         <div class="input-div">
           <button
             type="submit"
-            data-id="<%= report.id %> "
+            data-id="<%= reports.id %> "
             class="submit-button"
           >
             Submit
           </button>
         </div>
-        <% }) %>
       </section>
     </main>
     <script>
