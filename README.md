@@ -10,6 +10,7 @@ A social network where people can share the quality of the air in their city!
 ## Secondary Tools
 
 - [Sequelize](https://sequelize.org/)
+- [Multer]()
 - [Sass](https://sass-lang.com/)
 
 ## Getting Started
