@@ -11,11 +11,14 @@ const reportIndex = async (req, res) => {
 };
 
 const newReportGet = (req, res) => {
-  res.render("newPost");
+  res.render("newPost", {error: 0});
 };
 
 const newReportPost = async (req, res) => {
   const { city, status, comment, user } = req.body;
+  if(req.fileValidationError){
+    return res.render("newPost", {error: req.fileValidationError});
+  }
   const image = req.file.filename;
   try {
     const createdAt = new Date();
@@ -27,11 +30,11 @@ const newReportPost = async (req, res) => {
       user,
       image,
       createdAt,
-      updatedAt
+      updatedAt,
     });
     res.redirect("/");
   } catch (error) {
-    console.log(error);
+    res.render("newPost", {error: error});
   }
 };
 
@@ -53,7 +56,7 @@ const getSingleReport = async (req, res) => {
   const { id } = req.params;
   try {
     const reports = await Reports.findOne({ where: { id } });
-    return res.render("editPost", { reports: reports });
+    return res.render("editPost", { reports: reports, error: 0 });
   } catch (error) {
     console.log(error);
   }
@@ -69,7 +72,7 @@ const updateReport = async (req, res) => {
     );
     return res.json({ redirect: "/" });
   } catch (error) {
-    console.log(error);
+    res.render("editPost", {error: error})
   }
 };
 
@@ -83,6 +86,10 @@ const searchCity = async (req, res) => {
   }
 };
 
+const errorPage = (req, res) => {
+  res.render("errorPage");
+};
+
 module.exports = {
   reportIndex,
   newReportGet,
@@ -91,4 +98,5 @@ module.exports = {
   getSingleReport,
   updateReport,
   searchCity,
+  errorPage,
 };

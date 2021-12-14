@@ -13,7 +13,7 @@ const fileStorageEngine = multer.diskStorage({
 const fileType = (req, file, cb) => {
   const ext = file.mimetype;
   if (ext !== "image/jpeg" && ext !== "image/png" && ext !== "image/gif") {
-    req.fileValidationError = "Wrong extension. Just images allowed!";
+    req.fileValidationError = "Wrong extension. Only images are allowed!";
     return cb(null, false, req.fileValidationError);
   }
   cb(null, true);

@@ -76,6 +76,9 @@
             />
           </div>
 
+          <% if(error != 0){ %>
+            <p class="error"><%= error %> </p> 
+          <% } %> 
           <div class="input-div">
             <button type="submit" class="submit-button">Submit</button>
           </div>

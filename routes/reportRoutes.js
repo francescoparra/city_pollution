@@ -1,5 +1,6 @@
 const express = require("express");
 const upload = require("../controllers/multerController");
+const multerError = require("../controllers/multerErrorController");
 const reportController = require("../controllers/reportController");
 
 const router = express.Router();
@@ -8,7 +9,7 @@ const router = express.Router();
 
 router.get("/new-post", reportController.newReportGet);
 
-router.post("/insert", upload.single("image"), reportController.newReportPost);
+router.post("/insert", upload.single("image"), multerError, reportController.newReportPost);
 
 // read
 
@@ -26,5 +27,9 @@ router.delete("/delete/:id/:image", reportController.deleteReport);
 // search
 
 router.get("/search/:city", reportController.searchCity);
+
+// 404
+
+router.get("*", reportController.errorPage);
 
 module.exports = router;

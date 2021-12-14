@@ -101,6 +101,9 @@ main {
         }
       }
     }
+    .no-report{
+      margin-top: 2rem;
+    }
   }
   .new-report-section {
     .new-report-form {
@@ -183,6 +186,29 @@ main {
       border: 2px solid #77b631;
       border-radius: 0.5rem;
     }
+  }
+  .error-section{
+    margin-top: 1rem;
+    .error-title{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      h3{
+        margin-right: 0.5rem;
+      }
+    }
+    .error-comment{
+      a{
+        text-decoration: inherit;
+        color: inherit;
+        font-weight: 600;
+      }
+    }
+  }
+  .error{
+    color: red;
+    font-size: 14px;
   }
 }
 footer {

@@ -10,7 +10,7 @@ A social network where people can share the quality of the air in their city!
 ## Secondary Tools
 
 - [Sequelize](https://sequelize.org/)
-- [Multer]()
+- [Multer](https://www.npmjs.com/package/multer)
 - [Sass](https://sass-lang.com/)
 
 ## Getting Started
@@ -47,21 +47,18 @@ environment running
    ```
 5. Create an empty database: depending on your setup and system this may vary. The name doesn't matter, I called mine "city_pollution" for consistency.
 
-6. Update .env with your database connection settings in order to give the app access to it. In the .env file fill in the PORT option.
-
-7. Update the *config.json* file inside the config folder and put your DB credentials, for the supported dialects check this link [Supported Dialects](https://sequelize.org/master/manual/getting-started.html):
+6. Update .env with your database connection settings in order to give the app access to it. In the .env file fill in the options with your database credentials, for the supported dialects check this link [Supported Dialects](https://sequelize.org/master/manual/getting-started.html):
 
    ```sh
-   "development": {
-        "username": "[YOUR_USERNAME]",
-        "password": "[YOUR_PASSWORD]",
-        "database": "[YOUR_DB_NAME]",
-        "host": "[YOUR_HOST]",
-        "dialect": "[YOUR_DB_DIALECT]"
-    }
+   PORT = Your Port
+   USER = Your Username
+   PASSWORD = Your Password
+   DATABASE = Your Database Name
+   HOST = Your Host
+   DIALECT = Your Database Dialect 
    ```
 
-8. Run migrations in your DB with the migrations file or with sequelize:
+8. Run migrations in your database with the migrations file or with sequelize:
    ```sh
    sequelize db:migrate
    ```
